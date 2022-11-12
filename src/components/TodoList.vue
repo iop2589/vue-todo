@@ -1,9 +1,10 @@
 <template>
     <div>
       <ul>
-        <li v-for="todo in todoList" v-bind:key="todo.id" class="shadow">
-          {{todo.todo}}
-          <span class="removeBtn" v-on:click="removeTodo" >
+        <li v-for="(todo, index) in todolist" v-bind:key="todo.id" class="shadow">
+          <i class="checkBtn fas fa-check" v-bind:class="{checkBtnCompleted: todo.completed}" v-on:click="toggleComplete(index)"></i>
+          <span v-bind:class="{textCompleted: todo.completed}">{{todo.todo}}</span> 
+          <span class="removeBtn" v-on:click="removeTodo(todo.id)" >
             <i v-bind:todokey="todo.id" class="fas fa-trash-alt"></i>
           </span>
           
@@ -14,27 +15,14 @@
 
 <script>
 export default {
-  created: function () {
-    let strTodo = localStorage.getItem("todoList");
-    this.todoList = JSON.parse(strTodo);
-  },
-  data: function () {
-    return {
-      todoList : []
-    }
-  },
+  props:['todolist'],
   methods: {
-    removeTodo: function (event) {
-      let liId = event.target.attributes.todokey.value;
-      console.log(event.target.attributes.todokey.value);
-      console.dir(event.target);
-      this.todoList = this.todoList.filter((item) => this.todoFilter(parseInt(liId), item.id));
-      console.log(this.todoList);
-      localStorage.setItem("todoList", JSON.stringify(this.todoList));
+    removeTodo: function (liId) {
+      this.$emit("deleteTodo",liId);
     },
-    todoFilter: function (liId, todoId) {
-      return todoId !== liId;
-    }
+    toggleComplete: function (index) {
+      this.$emit("toggleComplete", index);
+    },
   }
 }
 </script>
