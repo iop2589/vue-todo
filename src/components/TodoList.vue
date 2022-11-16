@@ -1,7 +1,7 @@
 <template>
     <div>
       <transition-group name="list" tag="ul">
-          <li v-for="(todo, index) in todolist" v-bind:key="todo.id" class="shadow">
+          <li v-for="(todo, index) in this.$store.state.todoList" v-bind:key="todo.id" class="shadow">
             <i class="checkBtn fas fa-check" v-bind:class="{checkBtnCompleted: todo.completed}" v-on:click="toggleComplete(index)"></i>
             <span v-bind:class="{textCompleted: todo.completed}">{{todo.todo}}</span> 
             <span class="removeBtn" v-on:click="removeTodo(todo.id)" >
