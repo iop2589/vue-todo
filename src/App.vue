@@ -14,27 +14,27 @@ import TodoList from "./components/TodoList.vue";
 import TodoFooter from "./components/TodoFooter.vue";
 
 export default {
-  data: function () {
+  data () {
     return {
       todoList: []
     }
   },
   components: {
-    "todo-header": TodoHeader,
-    "todo-input": TodoInput,
-    "todo-list": TodoList,
-    "todo-footer": TodoFooter
+    TodoHeader,
+    TodoInput,
+    TodoList,
+    TodoFooter
   },
-  created: function () {
+  created() {
     if (localStorage.length > 0) {
-      let strTodo = localStorage.getItem("todoList");
+      const strTodo = localStorage.getItem("todoList");
       if (strTodo !== null) {
         this.todoList = JSON.parse(strTodo);
       }
     }
   },
   methods: {
-    addTodo: function(newTodoItem) {
+    addTodo(newTodoItem) {
       const newTodoObj = {
             id : Date.now(),
             todo : newTodoItem,
@@ -43,22 +43,22 @@ export default {
       this.todoList.push(newTodoObj);
       this.setLocalStorageItem();
     },
-    deleteTodo: function  (liId) {
+    deleteTodo(liId) {
       this.todoList = this.todoList.filter((item) => this.todoFilter(parseInt(liId), item.id));
       this.setLocalStorageItem();
     },
-    toggleComplete: function (index) {
+    toggleComplete(index) {
       this.todoList[index].completed = !this.todoList[index].completed;
       this.setLocalStorageItem();
     },
-    todoFilter: function (liId, todoId) {
+    todoFilter(liId, todoId) {
       return todoId !== liId;
     },
-    clearAllItem: function() {
+    clearAllItem() {
       localStorage.clear();
       this.todoList = [];
     },
-    setLocalStorageItem: function () {
+    setLocalStorageItem() {
       localStorage.setItem("todoList", JSON.stringify(this.todoList));
     }
   }

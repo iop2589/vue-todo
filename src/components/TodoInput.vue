@@ -4,7 +4,7 @@
       <span class="addContainer">
         <i class="fas fa-plus addBtn" v-on:click="addTodo"></i>
       </span>
-      <common-modal v-if="showModal" @close="showModal = false">
+      <Modal v-if="showModal" @close="showModal = false">
         <h3 slot="header">
           할일 입력 필수
           <i class="closeModalBtn fas fa-times" @click="showModal = false" v-on:keyup.enter="showModal = false"></i>
@@ -12,21 +12,21 @@
         <div slot="body">
           할일을 입력하고 다시 시도해주세요.
         </div>
-      </common-modal>
+      </Modal>
   </div>
 </template>
 
 <script>
 import Modal from './common/CommonModal.vue';
 export default {
-  data: function () {
+  data() {
     return {
       newTodoItem : "",
       showModal: false
     }
   },
   methods: {
-    addTodo: function () {
+    addTodo() {
         if (this.newTodoItem !== "") {
           this.$emit("addTodo", this.newTodoItem);
           this.clearInput();
@@ -34,12 +34,12 @@ export default {
           this.showModal = !this.showModal;
         }
     },
-    clearInput: function () {
+    clearInput() {
       this.newTodoItem = "";
     }
   },
   components: {
-    "common-modal":Modal
+    Modal
   }
 }
 </script>

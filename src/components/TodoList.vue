@@ -8,7 +8,7 @@
               <i v-bind:todokey="todo.id" class="fas fa-trash-alt"></i>
             </span>
           </li>
-      </transition-group>
+      </transition-group> 
     </div>
 </template>
 
@@ -16,10 +16,10 @@
 export default {
   props:['todolist'],
   methods: {
-    removeTodo: function (liId) {
+    removeTodo(liId) {
       this.$emit("deleteTodo",liId);
     },
-    toggleComplete: function (index) {
+    toggleComplete(index) {
       this.$emit("toggleComplete", index);
     },
   }
