@@ -14,13 +14,12 @@
 
 <script>
 export default {
-  props:['todolist'],
   methods: {
     removeTodo(liId) {
-      this.$emit("deleteTodo",liId);
+      this.$store.commit("deleteTodo",liId);
     },
     toggleComplete(index) {
-      this.$emit("toggleComplete", index);
+      this.$store.commit("toggleComplete", index);
     },
   }
 }
